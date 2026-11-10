@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#070b10">
+  <title>Deep Mine</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    { "imports": { "three": "/vendor/three/build/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="loading"><div class="spinner"></div><div>Генерация пещер…</div></div>
+
+  <!-- Сенсорное управление (под HUD: кнопки HUD остаются нажимаемыми) -->
+  <div id="touch" class="hidden">
+    <div id="touch-move"></div>
+    <div id="touch-look"></div>
+    <div id="stick-base"><div id="stick-knob"></div></div>
+    <button id="tb-menu" class="tbtn small" aria-label="Меню">☰</button>
+    <button id="tb-chat" class="tbtn small" aria-label="Чат">💬</button>
+    <button id="tb-build" class="tbtn mid">СТРОИТЬ</button>
+    <button id="tb-shop" class="tbtn mid hidden">МАСТЕРСКАЯ</button>
+    <button id="tb-place" class="tbtn mid hidden">ПОСТАВИТЬ</button>
+    <button id="tb-jump" class="tbtn">ПРЫЖОК</button>
+    <button id="tb-dig" class="tbtn big">КОПАТЬ</button>
+  </div>
+
+  <div id="hud" class="hidden">
+    <div id="crosshair"></div>
+    <div id="info"></div>
+    <div id="target" class="hidden">
+      <div id="target-name"></div>
+      <div class="bar"><div id="target-bar"></div></div>
+    </div>
+    <div id="money" class="money"><span class="coin"></span><span class="money-count">0</span></div>
+    <div id="prompt" class="hidden">[E] Мастерская</div>
+    <div id="toast"></div>
+    <div id="build-menu" class="hidden"></div>
+    <div id="resources"></div>
+
+    <div id="chat">
+      <div id="chat-log"></div>
+      <form id="chat-form" class="hidden" autocomplete="off">
+        <input id="chat-input" type="text" maxlength="120" placeholder="Сообщение… (/help — команды)" enterkeyhint="send">
+        <button type="submit" class="btn-s">➤</button>
+        <button type="button" id="chat-close" class="icon-btn" aria-label="Закрыть чат">✕</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="rotate-hint"><div>Поверните телефон горизонтально</div></div>
+
+  <div id="shop" class="panel hidden">
+    <div class="shop-head">
+      <h2>Мастерская</h2>
+      <div id="shop-money" class="money"></div>
+      <button id="shop-close" class="icon-btn" title="Закрыть (E / Esc)">✕</button>
+    </div>
+    <h3>Кирки</h3>
+    <div id="shop-picks" class="picks"></div>
+    <h3>Чары</h3>
+    <div id="shop-enchants" class="picks"></div>
+    <h3>Продажа ресурсов</h3>
+    <div id="shop-sell"></div>
+    <div id="shop-msg"></div>
+  </div>
+
+  <div id="menu" class="panel">
+    <h1>DEEP <span>MINE</span></h1>
+    <p class="subtitle">Исследуй пещеры. Добывай. Строй.</p>
+
+    <label for="nickname">Никнейм</label>
+    <input id="nickname" type="text" maxlength="16" placeholder="Введи ник" autocomplete="off">
+
+    <label for="password">Пароль (необязательно)</label>
+    <input id="password" type="password" maxlength="64" placeholder="Сохранит ник и прогресс" autocomplete="current-password">
+
+    <label for="graphics">Графика</label>
+    <select id="graphics">
+      <option value="low">Низкая</option>
+      <option value="medium" selected>Средняя</option>
+      <option value="high">Высокая</option>
+    </select>
+
+    <div id="menu-error" class="hidden"></div>
+    <button id="play" class="btn">Играть</button>
+
+    <div class="help help-pc">
+      <b>WASD</b> — движение &nbsp; <b>Мышь</b> — камера &nbsp; <b>ЛКМ</b> — копать &nbsp; <b>E</b> — мастерская &nbsp; <b>B</b> — строить (<b>ПКМ</b> — поставить, <b>1-3</b> — выбор) &nbsp; <b>G</b> — передать ресурсы &nbsp; <b>Space</b> — прыжок &nbsp; <b>Enter / T</b> — чат &nbsp; <b>Esc</b> — меню
+    </div>
+    <div class="help help-touch">
+      <b>Левый палец</b> — джойстик &nbsp; <b>Правый палец</b> — камера &nbsp; <b>КОПАТЬ</b> — держать &nbsp; <b>СТРОИТЬ</b> — режим постройки &nbsp; <b>💬</b> — чат &nbsp; <b>🎁</b> — передать ресурсы
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

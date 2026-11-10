@@ -1,0 +1,20 @@
+{
+  "name": "deep-mine",
+  "version": "0.4.0",
+  "description": "Deep Mine — браузерная 3D-мультиплеерная игра про пещеры",
+  "type": "module",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "start:env": "node --env-file=.env server/server.js",
+    "test": "node tests/game.test.mjs && node tests/features.test.mjs && node tests/persistence.test.mjs && node tests/supabase.test.mjs"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5",
+    "three": "^0.160.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
